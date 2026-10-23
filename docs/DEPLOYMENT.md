@@ -1,6 +1,6 @@
 # Deployment — Nginx + PHP-FPM
 
-The Django guide's *Nginx + Gunicorn* maps to **Nginx + PHP-FPM** here. Ready-made configs are in [`deploy/`](../deploy).
+The Django guide's _Nginx + Gunicorn_ maps to **Nginx + PHP-FPM** here. Ready-made configs are in [`deploy/`](../deploy).
 
 ## 1. Server prerequisites (Ubuntu 24.04 example)
 

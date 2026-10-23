@@ -111,7 +111,10 @@ export type ProductCard = {
 };
 
 /** The lean shape returned by the search typeahead. */
-export type ProductSuggestion = Pick<ProductCard, 'id' | 'name' | 'slug' | 'price' | 'image' | 'category'>;
+export type ProductSuggestion = Pick<
+    ProductCard,
+    'id' | 'name' | 'slug' | 'price' | 'image' | 'category'
+>;
 
 export type Product = ProductCard & {
     description: string | null;

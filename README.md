@@ -7,16 +7,16 @@ It covers the storefront, customer accounts, checkout with **Cash on Delivery** 
 
 ## Features
 
-| Area | Highlights |
-|------|-----------|
-| **Storefront** | Home, shop with category / brand / price / rating / stock / sale filters and sorting, live search suggestions, product pages with galleries, related and recently viewed products, wishlist, reviews & ratings, blog, FAQ, contact, about, sitemap, SEO titles/meta/Open Graph |
-| **Cart & checkout** | Guest carts merged on login, stock-aware quantities, coupons (percentage / fixed, limits, expiry), saved addresses, free-shipping progress, order notes |
-| **Payments** | Cash on Delivery and Stripe Checkout, signature-verified webhooks, amount/currency verification, idempotent processing, retry-payment, automatic cancellation of unpaid orders |
-| **Accounts** | Register, login, logout, email verification, forgot/reset password, profile with avatar, change password, 2FA, passkeys, address book, order history, PDF invoices |
-| **Admin** | KPI dashboard, sales reports with CSV export, products with multi-image upload, categories, brands, orders with lifecycle transitions, customers & roles, inventory ledger, coupons, review moderation, blog, FAQs, contact inbox |
-| **API** | Versioned REST API with JWT auth (`/api/v1`), auto-generated OpenAPI docs at `/docs/api` |
-| **Quality** | 195 Pest tests, PHPStan level 7, Pint (strict ruleset), oxlint/oxfmt, TypeScript strict, CI on GitHub Actions |
-| **Security** | CSRF, XSS-safe Markdown, parameterised queries, policies/gates, rate limiting, security headers, upload re-encoding, hardened cache, verified webhooks |
+| Area                | Highlights                                                                                                                                                                                                                                                                     |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Storefront**      | Home, shop with category / brand / price / rating / stock / sale filters and sorting, live search suggestions, product pages with galleries, related and recently viewed products, wishlist, reviews & ratings, blog, FAQ, contact, about, sitemap, SEO titles/meta/Open Graph |
+| **Cart & checkout** | Guest carts merged on login, stock-aware quantities, coupons (percentage / fixed, limits, expiry), saved addresses, free-shipping progress, order notes                                                                                                                        |
+| **Payments**        | Cash on Delivery and Stripe Checkout, signature-verified webhooks, amount/currency verification, idempotent processing, retry-payment, automatic cancellation of unpaid orders                                                                                                 |
+| **Accounts**        | Register, login, logout, email verification, forgot/reset password, profile with avatar, change password, 2FA, passkeys, address book, order history, PDF invoices                                                                                                             |
+| **Admin**           | KPI dashboard, sales reports with CSV export, products with multi-image upload, categories, brands, orders with lifecycle transitions, customers & roles, inventory ledger, coupons, review moderation, blog, FAQs, contact inbox                                              |
+| **API**             | Versioned REST API with JWT auth (`/api/v1`), auto-generated OpenAPI docs at `/docs/api`                                                                                                                                                                                       |
+| **Quality**         | 195 Pest tests, PHPStan level 7, Pint (strict ruleset), oxlint/oxfmt, TypeScript strict, CI on GitHub Actions                                                                                                                                                                  |
+| **Security**        | CSRF, XSS-safe Markdown, parameterised queries, policies/gates, rate limiting, security headers, upload re-encoding, hardened cache, verified webhooks                                                                                                                         |
 
 ## Tech stack
 
@@ -50,10 +50,10 @@ php artisan serve                 # http://localhost:8000
 
 ### Demo accounts (password: `password`)
 
-| Role | Email |
-|------|-------|
-| Administrator | `admin@shopnest.test` |
-| Customer | `customer@shopnest.test` |
+| Role          | Email                    |
+| ------------- | ------------------------ |
+| Administrator | `admin@shopnest.test`    |
+| Customer      | `customer@shopnest.test` |
 
 The seeder creates 182 products in 7 departments, ~540 reviews, coupons (`WELCOME10`, `SAVE20`, `FLASH25`), a 90-day order history, blog posts, FAQs and contact messages. Product photos come from the DummyJSON demo CDN; offline, neutral placeholders are generated.
 
