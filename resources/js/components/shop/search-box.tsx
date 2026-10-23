@@ -7,9 +7,9 @@ import { cn } from '@/lib/utils';
 import { show } from '@/routes/products';
 import { suggestions as suggestionsRoute } from '@/routes/search';
 import { index as shopIndex } from '@/routes/shop';
-import type { ProductCard } from '@/types';
+import type { ProductSuggestion } from '@/types';
 
-type SuggestionResponse = { products: ProductCard[] };
+type SuggestionResponse = { products: ProductSuggestion[] };
 
 /**
  * Catalogue search with debounced live suggestions and keyboard navigation.
@@ -32,7 +32,7 @@ export function SearchBox({
     );
     const [open, setOpen] = useState(false);
     const [active, setActive] = useState(-1);
-    const [results, setResults] = useState<ProductCard[]>([]);
+    const [results, setResults] = useState<ProductSuggestion[]>([]);
     const http = useHttp<{ q: string }, SuggestionResponse>(
         'get',
         suggestionsRoute.url(),

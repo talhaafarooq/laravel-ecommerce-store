@@ -170,7 +170,7 @@ final class ProductRepository implements ProductRepositoryInterface
     public function searchSuggestions(string $term, int $limit): Collection
     {
         $query = Product::query()
-            ->select(['products.id', 'products.category_id', 'products.name', 'products.slug', 'products.price', 'products.compare_at_price'])
+            ->select(['products.id', 'products.category_id', 'products.name', 'products.slug', 'products.price'])
             ->visible()
             ->with(['primaryImage', 'category:id,name,slug']);
 

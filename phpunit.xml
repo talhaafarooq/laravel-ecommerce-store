@@ -29,6 +29,17 @@
         <env name="MAIL_MAILER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
+        <env name="INERTIA_SSR_ENABLED" value="false"/>
+        <env name="JWT_SECRET" value="phpunit-jwt-secret-phpunit-jwt-secret-0123456789abcdef"/>
+        <env name="SHOP_CURRENCY" value="USD"/>
+        <env name="SHOP_SHIPPING_FLAT_RATE" value="5.00"/>
+        <env name="SHOP_FREE_SHIPPING_THRESHOLD" value="50.00"/>
+        <env name="SHOP_TAX_RATE" value="0"/>
+        <env name="SHOP_MEDIA_DISK" value="public"/>
+        <env name="SHOP_REVIEWS_AUTO_APPROVE" value="true"/>
+        <env name="STRIPE_KEY" value=""/>
+        <env name="STRIPE_SECRET" value=""/>
+        <env name="STRIPE_WEBHOOK_SECRET" value=""/>
         <env name="PULSE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
         <env name="NIGHTWATCH_ENABLED" value="false"/>

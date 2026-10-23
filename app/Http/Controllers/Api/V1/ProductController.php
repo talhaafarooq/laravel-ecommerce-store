@@ -10,6 +10,7 @@ use App\Http\Requests\Storefront\ProductIndexRequest;
 use App\Http\Requests\Storefront\SearchSuggestionRequest;
 use App\Http\Resources\ProductCardResource;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductSuggestionResource;
 use App\Http\Resources\ReviewResource;
 use App\Services\CatalogService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -37,7 +38,7 @@ final class ProductController extends Controller
      */
     public function search(SearchSuggestionRequest $request): AnonymousResourceCollection
     {
-        return ProductCardResource::collection($this->catalog->suggestions($request->term()));
+        return ProductSuggestionResource::collection($this->catalog->suggestions($request->term()));
     }
 
     /**

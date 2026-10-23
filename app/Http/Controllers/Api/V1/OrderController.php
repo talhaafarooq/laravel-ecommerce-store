@@ -57,8 +57,8 @@ final class OrderController extends Controller
 
     public function cancel(CancelOrderRequest $request, Order $order, OrderService $orders): OrderResource
     {
-        $orders->cancelByCustomer($order, $request->user(), $request->validated('reason'));
+        $cancelled = $orders->cancelByCustomer($order, $request->user(), $request->validated('reason'));
 
-        return OrderResource::make($this->orders->loadDetails($order));
+        return OrderResource::make($this->orders->loadDetails($cancelled));
     }
 }

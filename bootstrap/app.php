@@ -72,6 +72,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 return $response;
             }
 
+            // Unmatched routes never reach the Inertia middleware, so share the asset
+            // version here or the next client-side visit would force a full reload.
+            Inertia::version(static fn (): ?string => app(HandleInertiaRequests::class)->version($request));
+
             return Inertia::render('error', ['status' => $status])
                 ->toResponse($request)
                 ->setStatusCode($status);

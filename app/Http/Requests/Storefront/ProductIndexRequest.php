@@ -27,7 +27,7 @@ final class ProductIndexRequest extends FormRequest
             'brands'     => ['nullable', 'array', 'max:20'],
             'brands.*'   => ['string', 'max:120'],
             'min_price'  => ['nullable', 'numeric', 'min:0', 'max:1000000'],
-            'max_price'  => ['nullable', 'numeric', 'min:0', 'max:1000000', 'gte:min_price'],
+            'max_price'  => ['nullable', 'numeric', 'min:0', 'max:1000000', Rule::when($this->filled('min_price'), 'gte:min_price')],
             'min_rating' => ['nullable', 'integer', 'between:1,5'],
             'in_stock'   => ['nullable', 'boolean'],
             'on_sale'    => ['nullable', 'boolean'],
