@@ -4,9 +4,11 @@ import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileCo
 import DeleteUser from '@/components/delete-user';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useInitials } from '@/hooks/use-initials';
 import { edit } from '@/routes/profile';
 import type { Auth } from '@/types';
 import { send } from '@/routes/verification';
@@ -23,6 +25,8 @@ export default function Profile({
     status?: string;
 }) {
     const { auth } = usePage<PageProps>().props;
+    const user = auth.user!;
+    const getInitials = useInitials();
 
     return (
         <>
@@ -34,7 +38,7 @@ export default function Profile({
                 <Heading
                     variant="small"
                     title="Profile"
-                    description="Update your name and email address"
+                    description="Update your photo, name and contact details"
                 />
 
                 <Form
@@ -43,16 +47,50 @@ export default function Profile({
                         preserveScroll: true,
                     }}
                     className="space-y-6"
+                    encType="multipart/form-data"
                 >
                     {({ processing, errors }) => (
                         <>
+                            <div className="flex items-center gap-4">
+                                <Avatar className="size-16">
+                                    <AvatarImage
+                                        src={user.avatar ?? undefined}
+                                        alt={user.name}
+                                    />
+                                    <AvatarFallback className="bg-primary/10 text-lg text-primary">
+                                        {getInitials(user.name)}
+                                    </AvatarFallback>
+                                </Avatar>
+                                <div className="grid flex-1 gap-2">
+                                    <Label htmlFor="avatar">Profile photo</Label>
+                                    <Input
+                                        id="avatar"
+                                        type="file"
+                                        name="avatar"
+                                        accept="image/png,image/jpeg,image/webp"
+                                    />
+                                    <InputError message={errors.avatar} />
+                                    {user.avatar && (
+                                        <label className="flex items-center gap-2 text-sm text-muted-foreground">
+                                            <input
+                                                type="checkbox"
+                                                name="remove_avatar"
+                                                value="1"
+                                                className="size-4 accent-primary"
+                                            />
+                                            Remove current photo
+                                        </label>
+                                    )}
+                                </div>
+                            </div>
+
                             <div className="grid gap-2">
                                 <Label htmlFor="name">Name</Label>
 
                                 <Input
                                     id="name"
                                     className="mt-1 block w-full"
-                                    defaultValue={auth.user.name}
+                                    defaultValue={user.name}
                                     name="name"
                                     required
                                     autoComplete="name"
@@ -72,7 +110,7 @@ export default function Profile({
                                     id="email"
                                     type="email"
                                     className="mt-1 block w-full"
-                                    defaultValue={auth.user.email}
+                                    defaultValue={user.email}
                                     name="email"
                                     required
                                     autoComplete="username"
@@ -85,8 +123,25 @@ export default function Profile({
                                 />
                             </div>
 
+                            <div className="grid gap-2">
+                                <Label htmlFor="phone">Phone</Label>
+                                <Input
+                                    id="phone"
+                                    type="tel"
+                                    className="mt-1 block w-full"
+                                    defaultValue={user.phone ?? ''}
+                                    name="phone"
+                                    autoComplete="tel"
+                                    placeholder="+1 (555) 000-0000"
+                                />
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.phone}
+                                />
+                            </div>
+
                             {mustVerifyEmail &&
-                                auth.user.email_verified_at === null && (
+                                user.email_verified_at === null && (
                                     <div>
                                         <p className="-mt-4 text-sm text-muted-foreground">
                                             Your email address is unverified.{' '}

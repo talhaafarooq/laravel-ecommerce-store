@@ -1,17 +1,24 @@
+import type { Option } from '@/types/shop';
+
 export type User = {
     id: number;
     name: string;
     email: string;
-    avatar?: string;
+    phone: string | null;
+    avatar: string | null;
+    role: Option<'admin' | 'customer'>;
+    is_admin: boolean;
+    is_active: boolean;
     email_verified_at: string | null;
-    two_factor_enabled?: boolean;
-    created_at: string;
-    updated_at: string;
-    [key: string]: unknown;
+    two_factor_enabled: boolean;
+    last_login_at: string | null;
+    created_at: string | null;
+    orders_count?: number;
+    total_spent?: import('@/types/shop').Money;
 };
 
 export type Auth = {
-    user: User;
+    user: User | null;
 };
 
 export type Passkey = {

@@ -1,4 +1,5 @@
 import { Link, router } from '@inertiajs/react';
+import type { LucideIcon } from 'lucide-react';
 import { LogOut, Settings } from 'lucide-react';
 import {
     DropdownMenuGroup,
@@ -12,11 +13,18 @@ import { logout } from '@/routes';
 import { edit } from '@/routes/profile';
 import type { User } from '@/types';
 
-type Props = {
-    user: User;
+type MenuLink = {
+    title: string;
+    href: string;
+    icon: LucideIcon;
 };
 
-export function UserMenuContent({ user }: Props) {
+type Props = {
+    user: User;
+    links?: MenuLink[];
+};
+
+export function UserMenuContent({ user, links = [] }: Props) {
     const cleanup = useMobileNavigation();
 
     const handleLogout = () => {
@@ -33,6 +41,18 @@ export function UserMenuContent({ user }: Props) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+                {links.map(({ title, href, icon: Icon }) => (
+                    <DropdownMenuItem key={title} asChild>
+                        <Link
+                            className="block w-full cursor-pointer"
+                            href={href}
+                            onClick={cleanup}
+                        >
+                            <Icon className="mr-2" />
+                            {title}
+                        </Link>
+                    </DropdownMenuItem>
+                ))}
                 <DropdownMenuItem asChild>
                     <Link
                         className="block w-full cursor-pointer"
