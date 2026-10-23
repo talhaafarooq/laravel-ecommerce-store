@@ -266,7 +266,7 @@ final class ProductRepository implements ProductRepositoryInterface
             ->with('primaryImage')
             ->orderBy('stock_quantity')
             ->limit($limit)
-            ->get(['id', 'name', 'slug', 'sku', 'stock_quantity', 'low_stock_threshold']);
+            ->get();
     }
 
     public function countLowStock(): int

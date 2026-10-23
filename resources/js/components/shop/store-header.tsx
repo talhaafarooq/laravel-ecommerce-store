@@ -38,11 +38,18 @@ import { UserMenuContent } from '@/components/user-menu-content';
 import { Container } from '@/components/shop/container';
 import { useInitials } from '@/hooks/use-initials';
 import { cn } from '@/lib/utils';
-import { about, contact, faq, home, login, register } from '@/routes';
+import {
+    about,
+    contact,
+    dashboard,
+    faq,
+    home,
+    login,
+    register,
+} from '@/routes';
 import { dashboard as accountDashboard } from '@/routes/account';
 import { index as ordersIndex } from '@/routes/account/orders';
 import { index as wishlistIndex } from '@/routes/account/wishlist';
-import { dashboard as adminDashboard } from '@/routes/admin';
 import { index as blogIndex } from '@/routes/blog';
 import { index as cartIndex } from '@/routes/cart';
 import { show as categoryShow } from '@/routes/categories';
@@ -57,8 +64,7 @@ const pages = [
 ];
 
 export function StoreHeader() {
-    const { auth, navigation, cartCount, wishlistIds, store } =
-        usePage().props;
+    const { auth, navigation, cartCount, wishlistIds, store } = usePage().props;
     const getInitials = useInitials();
     const [mobileOpen, setMobileOpen] = useState(false);
     const user = auth.user;
@@ -106,7 +112,9 @@ export function StoreHeader() {
                             </SheetTitle>
                         </SheetHeader>
                         <div className="px-4">
-                            <SearchBox onNavigate={() => setMobileOpen(false)} />
+                            <SearchBox
+                                onNavigate={() => setMobileOpen(false)}
+                            />
                         </div>
                         <nav className="space-y-6 px-4 pb-8">
                             <ul className="space-y-1">
@@ -130,7 +138,9 @@ export function StoreHeader() {
                                     {navigation.map((category) => (
                                         <li key={category.id}>
                                             <Link
-                                                href={categoryShow(category.slug)}
+                                                href={categoryShow(
+                                                    category.slug,
+                                                )}
                                                 onClick={() =>
                                                     setMobileOpen(false)
                                                 }
@@ -160,10 +170,7 @@ export function StoreHeader() {
                             asChild
                             className="relative hidden sm:inline-flex"
                         >
-                            <Link
-                                href={wishlistIndex()}
-                                aria-label="Wishlist"
-                            >
+                            <Link href={wishlistIndex()} aria-label="Wishlist">
                                 <Heart className="size-5" />
                                 {wishlistIds.length > 0 && (
                                     <CountBadge count={wishlistIds.length} />
@@ -212,7 +219,7 @@ export function StoreHeader() {
                                             ? [
                                                   {
                                                       title: 'Admin dashboard',
-                                                      href: adminDashboard.url(),
+                                                      href: dashboard.url(),
                                                       icon: LayoutDashboard,
                                                   },
                                               ]
@@ -269,7 +276,9 @@ export function StoreHeader() {
                             {navigation.map((category) => (
                                 <NavigationMenuItem key={category.id}>
                                     <NavigationMenuTrigger className="h-9 bg-transparent px-3 text-sm font-medium">
-                                        <Link href={categoryShow(category.slug)}>
+                                        <Link
+                                            href={categoryShow(category.slug)}
+                                        >
                                             {category.name}
                                         </Link>
                                     </NavigationMenuTrigger>
@@ -281,7 +290,9 @@ export function StoreHeader() {
                                                         {category.children.map(
                                                             (child) => (
                                                                 <li
-                                                                    key={child.id}
+                                                                    key={
+                                                                        child.id
+                                                                    }
                                                                 >
                                                                     <Link
                                                                         href={categoryShow(

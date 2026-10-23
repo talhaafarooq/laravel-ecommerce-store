@@ -24,9 +24,14 @@ final class StockMovementResource extends JsonResource
             'quantity'      => $this->quantity,
             'balance_after' => $this->balance_after,
             'note'          => $this->note,
-            'user'          => $this->relationLoaded('user') ? $this->user?->name : null,
-            'order_number'  => $this->relationLoaded('order') ? $this->order?->number : null,
-            'created_at'    => $this->created_at?->toIso8601String(),
+            'product'       => $this->whenLoaded('product', fn (): array => [
+                'id'   => $this->product->id,
+                'name' => $this->product->name,
+                'sku'  => $this->product->sku,
+            ]),
+            'user'         => $this->relationLoaded('user') ? $this->user?->name : null,
+            'order_number' => $this->relationLoaded('order') ? $this->order?->number : null,
+            'created_at'   => $this->created_at?->toIso8601String(),
         ];
     }
 }

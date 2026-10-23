@@ -62,7 +62,9 @@ export default function Profile({
                                     </AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 gap-2">
-                                    <Label htmlFor="avatar">Profile photo</Label>
+                                    <Label htmlFor="avatar">
+                                        Profile photo
+                                    </Label>
                                     <Input
                                         id="avatar"
                                         type="file"

@@ -30,17 +30,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', DashboardController::class)->name('dashboard');
 
-Route::resource('products', ProductController::class)->except('show')->withTrashed(['edit', 'update']);
-Route::post('products/{product}/restore', [ProductController::class, 'restore'])->withTrashed()->name('products.restore');
+Route::resource('products', ProductController::class)
+    ->parameters(['products' => 'product:id'])
+    ->except('show')
+    ->withTrashed(['edit', 'update']);
+Route::post('products/{product:id}/restore', [ProductController::class, 'restore'])->withTrashed()->name('products.restore');
 
 Route::scopeBindings()->group(function (): void {
-    Route::post('products/{product}/images', [ProductImageController::class, 'store'])->withTrashed()->name('products.images.store');
-    Route::post('products/{product}/images/{image}/primary', [ProductImageController::class, 'primary'])->withTrashed()->name('products.images.primary');
-    Route::delete('products/{product}/images/{image}', [ProductImageController::class, 'destroy'])->withTrashed()->name('products.images.destroy');
+    Route::post('products/{product:id}/images', [ProductImageController::class, 'store'])->withTrashed()->name('products.images.store');
+    Route::post('products/{product:id}/images/{image}/primary', [ProductImageController::class, 'primary'])->withTrashed()->name('products.images.primary');
+    Route::delete('products/{product:id}/images/{image}', [ProductImageController::class, 'destroy'])->withTrashed()->name('products.images.destroy');
 });
 
-Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
-Route::resource('brands', BrandController::class)->only(['index', 'store', 'update', 'destroy']);
+Route::resource('categories', CategoryController::class)
+    ->parameters(['categories' => 'category:id'])
+    ->only(['index', 'store', 'update', 'destroy']);
+Route::resource('brands', BrandController::class)
+    ->parameters(['brands' => 'brand:id'])
+    ->only(['index', 'store', 'update', 'destroy']);
 
 Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
@@ -52,7 +59,7 @@ Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
 Route::patch('users/{user}/access', [UserController::class, 'updateAccess'])->name('users.access');
 
 Route::get('inventory', [InventoryController::class, 'index'])->name('inventory.index');
-Route::post('inventory/{product}/adjust', [InventoryController::class, 'adjust'])->withTrashed()->name('inventory.adjust');
+Route::post('inventory/{product:id}/adjust', [InventoryController::class, 'adjust'])->withTrashed()->name('inventory.adjust');
 
 Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
 Route::get('reports/export', [ReportController::class, 'export'])->name('reports.export');
@@ -63,7 +70,9 @@ Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index')
 Route::patch('reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
 Route::delete('reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
-Route::resource('posts', PostController::class)->except('show');
+Route::resource('posts', PostController::class)
+    ->parameters(['posts' => 'post:id'])
+    ->except('show');
 Route::resource('faqs', FaqController::class)->only(['index', 'store', 'update', 'destroy']);
 
 Route::get('messages', [MessageController::class, 'index'])->name('messages.index');

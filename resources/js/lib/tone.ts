@@ -1,8 +1,7 @@
 import type { Tone } from '@/types';
 
 export const toneClasses: Record<Tone, string> = {
-    neutral:
-        'bg-muted text-muted-foreground ring-border dark:bg-muted/60',
+    neutral: 'bg-muted text-muted-foreground ring-border dark:bg-muted/60',
     info: 'bg-sky-50 text-sky-700 ring-sky-600/20 dark:bg-sky-500/10 dark:text-sky-300 dark:ring-sky-400/30',
     primary:
         'bg-indigo-50 text-indigo-700 ring-indigo-600/20 dark:bg-indigo-500/10 dark:text-indigo-300 dark:ring-indigo-400/30',

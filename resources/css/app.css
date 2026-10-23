@@ -46,6 +46,10 @@
     --color-ring: var(--ring);
 
     --color-chart-1: var(--chart-1);
+    --color-chart-grid: var(--chart-grid);
+    --color-chart-axis: var(--chart-axis);
+    --color-chart-label: var(--chart-label);
+    --color-chart-muted: var(--chart-muted);
     --color-chart-2: var(--chart-2);
     --color-chart-3: var(--chart-3);
     --color-chart-4: var(--chart-4);
@@ -81,7 +85,12 @@
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
     --ring: oklch(0.785 0.115 274.713);
-    --chart-1: oklch(0.511 0.262 276.966);
+    /* Chart palette: accent validated with the dataviz validator (L-band, chroma, contrast vs #fff). */
+    --chart-1: #4f46e5;
+    --chart-grid: #f0f0f0;
+    --chart-axis: #dcdcdc;
+    --chart-label: #737373;
+    --chart-muted: #d4d4d4;
     --chart-2: oklch(0.696 0.17 162.48);
     --chart-3: oklch(0.769 0.188 70.08);
     --chart-4: oklch(0.645 0.246 16.439);
@@ -117,7 +126,12 @@
     --border: oklch(0.269 0 0);
     --input: oklch(0.269 0 0);
     --ring: oklch(0.439 0 0);
-    --chart-1: oklch(0.673 0.182 276.935);
+    /* Dark steps validated against the dark card surface (#0a0a0a). */
+    --chart-1: #7a7ef6;
+    --chart-grid: #1c1c1c;
+    --chart-axis: #2e2e2e;
+    --chart-label: #a3a3a3;
+    --chart-muted: #404040;
     --chart-2: oklch(0.696 0.17 162.48);
     --chart-3: oklch(0.769 0.188 70.08);
     --chart-4: oklch(0.627 0.265 303.9);

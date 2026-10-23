@@ -60,9 +60,13 @@ export default function Shop({
     sortOptions,
 }: Props) {
     const [open, setOpen] = useState(false);
-    const title = category?.name ?? (filters.search ? `Results for “${filters.search}”` : 'All products');
+    const title =
+        category?.name ??
+        (filters.search ? `Results for “${filters.search}”` : 'All products');
 
-    const pathname = category ? categoryShow.url(category.slug) : shopIndex.url();
+    const pathname = category
+        ? categoryShow.url(category.slug)
+        : shopIndex.url();
 
     const visit = (changes: Query) => {
         const next: Query = {
@@ -135,7 +139,9 @@ export default function Shop({
                         <Link
                             href={shopIndex()}
                             className={cn(
-                                category ? 'hover:text-foreground' : 'text-foreground',
+                                category
+                                    ? 'hover:text-foreground'
+                                    : 'text-foreground',
                             )}
                         >
                             Shop
@@ -154,11 +160,15 @@ export default function Shop({
                         {category && (
                             <>
                                 <span aria-hidden>/</span>
-                                <span className="text-foreground">{category.name}</span>
+                                <span className="text-foreground">
+                                    {category.name}
+                                </span>
                             </>
                         )}
                     </nav>
-                    <h1 className="text-3xl font-semibold tracking-tight">{title}</h1>
+                    <h1 className="text-3xl font-semibold tracking-tight">
+                        {title}
+                    </h1>
                     {category?.description && (
                         <p className="mt-2 max-w-2xl text-muted-foreground">
                             {category.description}
@@ -175,15 +185,24 @@ export default function Shop({
                         <div className="flex items-center gap-3">
                             <Sheet open={open} onOpenChange={setOpen}>
                                 <SheetTrigger asChild>
-                                    <Button variant="outline" size="sm" className="lg:hidden">
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        className="lg:hidden"
+                                    >
                                         <SlidersHorizontal />
                                         Filters
                                         {activeCount > 0 && (
-                                            <Badge className="ml-1">{activeCount}</Badge>
+                                            <Badge className="ml-1">
+                                                {activeCount}
+                                            </Badge>
                                         )}
                                     </Button>
                                 </SheetTrigger>
-                                <SheetContent side="left" className="w-80 overflow-y-auto">
+                                <SheetContent
+                                    side="left"
+                                    className="w-80 overflow-y-auto"
+                                >
                                     <SheetHeader>
                                         <SheetTitle>Filters</SheetTitle>
                                     </SheetHeader>
@@ -194,24 +213,36 @@ export default function Shop({
                                 <span className="font-medium text-foreground">
                                     {products.meta.total}
                                 </span>{' '}
-                                {products.meta.total === 1 ? 'product' : 'products'}
+                                {products.meta.total === 1
+                                    ? 'product'
+                                    : 'products'}
                             </p>
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <Label htmlFor="sort" className="hidden text-sm sm:block">
+                            <Label
+                                htmlFor="sort"
+                                className="hidden text-sm sm:block"
+                            >
                                 Sort by
                             </Label>
                             <Select
                                 value={filters.sort}
                                 onValueChange={(sort) => visit({ sort })}
                             >
-                                <SelectTrigger id="sort" className="w-44" size="sm">
+                                <SelectTrigger
+                                    id="sort"
+                                    className="w-44"
+                                    size="sm"
+                                >
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {sortOptions.map((option) => (
-                                        <SelectItem key={option.value} value={option.value}>
+                                        <SelectItem
+                                            key={option.value}
+                                            value={option.value}
+                                        >
                                             {option.label}
                                         </SelectItem>
                                     ))}
@@ -225,10 +256,16 @@ export default function Shop({
                             {filters.brands.map((slug) => (
                                 <FilterChip
                                     key={slug}
-                                    label={brands.find((brand) => brand.slug === slug)?.name ?? slug}
+                                    label={
+                                        brands.find(
+                                            (brand) => brand.slug === slug,
+                                        )?.name ?? slug
+                                    }
                                     onRemove={() =>
                                         visit({
-                                            brands: filters.brands.filter((value) => value !== slug),
+                                            brands: filters.brands.filter(
+                                                (value) => value !== slug,
+                                            ),
                                         })
                                     }
                                 />
@@ -237,26 +274,35 @@ export default function Shop({
                                 <FilterChip
                                     label={`Price: ${filters.min_price ?? 0} – ${filters.max_price ?? '∞'}`}
                                     onRemove={() =>
-                                        visit({ min_price: undefined, max_price: undefined })
+                                        visit({
+                                            min_price: undefined,
+                                            max_price: undefined,
+                                        })
                                     }
                                 />
                             )}
                             {filters.min_rating && (
                                 <FilterChip
                                     label={`${filters.min_rating}★ & up`}
-                                    onRemove={() => visit({ min_rating: undefined })}
+                                    onRemove={() =>
+                                        visit({ min_rating: undefined })
+                                    }
                                 />
                             )}
                             {filters.in_stock && (
                                 <FilterChip
                                     label="In stock"
-                                    onRemove={() => visit({ in_stock: undefined })}
+                                    onRemove={() =>
+                                        visit({ in_stock: undefined })
+                                    }
                                 />
                             )}
                             {filters.on_sale && (
                                 <FilterChip
                                     label="On sale"
-                                    onRemove={() => visit({ on_sale: undefined })}
+                                    onRemove={() =>
+                                        visit({ on_sale: undefined })
+                                    }
                                 />
                             )}
                             <button
@@ -285,14 +331,19 @@ export default function Shop({
                             description="Try removing some filters or searching for something else."
                             action={
                                 <Button asChild>
-                                    <Link href={shopIndex()}>Browse all products</Link>
+                                    <Link href={shopIndex()}>
+                                        Browse all products
+                                    </Link>
                                 </Button>
                             }
                         />
                     ) : (
                         <>
                             <ProductGrid products={products.data} />
-                            <Pagination meta={products.meta} className="mt-10" />
+                            <Pagination
+                                meta={products.meta}
+                                className="mt-10"
+                            />
                         </>
                     )}
                 </div>
@@ -301,7 +352,13 @@ export default function Shop({
     );
 }
 
-function FilterChip({ label, onRemove }: { label: string; onRemove: () => void }) {
+function FilterChip({
+    label,
+    onRemove,
+}: {
+    label: string;
+    onRemove: () => void;
+}) {
     return (
         <button
             type="button"
@@ -374,12 +431,15 @@ function FilterPanel({
                                 onClick={() =>
                                     onChange({
                                         min_rating:
-                                            filters.min_rating === rating ? undefined : rating,
+                                            filters.min_rating === rating
+                                                ? undefined
+                                                : rating,
                                     })
                                 }
                                 className={cn(
                                     'flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-accent',
-                                    filters.min_rating === rating && 'bg-primary/10 text-primary',
+                                    filters.min_rating === rating &&
+                                        'bg-primary/10 text-primary',
                                 )}
                             >
                                 <span className="text-amber-400" aria-hidden>
@@ -403,7 +463,10 @@ function FilterPanel({
                             const checked = filters.brands.includes(brand.slug);
 
                             return (
-                                <li key={brand.id} className="flex items-center gap-2">
+                                <li
+                                    key={brand.id}
+                                    className="flex items-center gap-2"
+                                >
                                     <Checkbox
                                         id={`brand-${brand.id}`}
                                         checked={checked}
@@ -411,9 +474,14 @@ function FilterPanel({
                                             onChange({
                                                 brands: checked
                                                     ? filters.brands.filter(
-                                                          (slug) => slug !== brand.slug,
+                                                          (slug) =>
+                                                              slug !==
+                                                              brand.slug,
                                                       )
-                                                    : [...filters.brands, brand.slug],
+                                                    : [
+                                                          ...filters.brands,
+                                                          brand.slug,
+                                                      ],
                                             })
                                         }
                                     />

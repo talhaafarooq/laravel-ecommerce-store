@@ -347,6 +347,7 @@ export type StockMovement = {
     quantity: number;
     balance_after: number;
     note: string | null;
+    product?: { id: number; name: string; sku: string };
     user: string | null;
     order_number: string | null;
     created_at: string | null;

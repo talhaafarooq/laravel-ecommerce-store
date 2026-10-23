@@ -49,9 +49,7 @@ export function RatingStars({
                 })}
             </div>
             {count !== undefined && (
-                <span className="text-xs text-muted-foreground">
-                    ({count})
-                </span>
+                <span className="text-xs text-muted-foreground">({count})</span>
             )}
         </div>
     );

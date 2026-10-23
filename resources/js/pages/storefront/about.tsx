@@ -47,9 +47,10 @@ export default function About() {
                         We make shopping simple, fast and a little bit joyful.
                     </h1>
                     <p className="mt-5 text-lg text-muted-foreground">
-                        {name} started with a simple idea: buying things online should feel as good as unwrapping
-                        them. Today we bring together hundreds of products from brands we love, with the service you
-                        would expect from a neighbourhood shop.
+                        {name} started with a simple idea: buying things online
+                        should feel as good as unwrapping them. Today we bring
+                        together hundreds of products from brands we love, with
+                        the service you would expect from a neighbourhood shop.
                     </p>
                 </Container>
             </section>
@@ -57,24 +58,38 @@ export default function About() {
             <Container className="py-14">
                 <dl className="grid grid-cols-2 gap-6 lg:grid-cols-4">
                     {stats.map((stat) => (
-                        <div key={stat.label} className="rounded-xl border bg-card p-6 text-center">
-                            <dt className="text-sm text-muted-foreground">{stat.label}</dt>
-                            <dd className="mt-1 text-3xl font-semibold tracking-tight text-primary">{stat.value}</dd>
+                        <div
+                            key={stat.label}
+                            className="rounded-xl border bg-card p-6 text-center"
+                        >
+                            <dt className="text-sm text-muted-foreground">
+                                {stat.label}
+                            </dt>
+                            <dd className="mt-1 text-3xl font-semibold tracking-tight text-primary">
+                                {stat.value}
+                            </dd>
                         </div>
                     ))}
                 </dl>
             </Container>
 
             <Container className="pb-16">
-                <h2 className="mb-8 text-center text-2xl font-semibold tracking-tight">What we stand for</h2>
+                <h2 className="mb-8 text-center text-2xl font-semibold tracking-tight">
+                    What we stand for
+                </h2>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {values.map(({ icon: Icon, title, text }) => (
-                        <div key={title} className="rounded-xl border bg-card p-6">
+                        <div
+                            key={title}
+                            className="rounded-xl border bg-card p-6"
+                        >
                             <span className="flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
                                 <Icon className="size-5" />
                             </span>
                             <h3 className="mt-4 font-semibold">{title}</h3>
-                            <p className="mt-2 text-sm text-muted-foreground">{text}</p>
+                            <p className="mt-2 text-sm text-muted-foreground">
+                                {text}
+                            </p>
                         </div>
                     ))}
                 </div>
@@ -82,7 +97,9 @@ export default function About() {
 
             <Container className="pb-4">
                 <div className="rounded-2xl bg-primary px-6 py-12 text-center text-primary-foreground">
-                    <h2 className="text-2xl font-semibold tracking-tight">Ready to find something you love?</h2>
+                    <h2 className="text-2xl font-semibold tracking-tight">
+                        Ready to find something you love?
+                    </h2>
                     <div className="mt-6 flex flex-wrap justify-center gap-3">
                         <Button variant="secondary" size="lg" asChild>
                             <Link href={shopIndex()}>Start shopping</Link>

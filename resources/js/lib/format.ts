@@ -34,6 +34,10 @@ export function formatCurrency(value: number, currency = 'USD'): string {
     }).format(value);
 }
 
-export function pluralize(count: number, singular: string, plural = `${singular}s`): string {
+export function pluralize(
+    count: number,
+    singular: string,
+    plural = `${singular}s`,
+): string {
     return `${formatNumber(count)} ${count === 1 ? singular : plural}`;
 }

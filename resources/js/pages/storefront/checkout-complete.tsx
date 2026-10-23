@@ -17,23 +17,42 @@ export default function CheckoutComplete({ order }: { order: Order }) {
                     <span className="mx-auto flex size-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
                         <CheckCircle2 className="size-8" />
                     </span>
-                    <h1 className="mt-6 text-3xl font-semibold tracking-tight">Thank you for your order!</h1>
+                    <h1 className="mt-6 text-3xl font-semibold tracking-tight">
+                        Thank you for your order!
+                    </h1>
                     <p className="mt-2 text-muted-foreground">
-                        Order <strong className="text-foreground">{order.number}</strong> was placed on{' '}
-                        {formatDate(order.placed_at)}. We've emailed a confirmation to {order.customer_email}.
+                        Order{' '}
+                        <strong className="text-foreground">
+                            {order.number}
+                        </strong>{' '}
+                        was placed on {formatDate(order.placed_at)}. We've
+                        emailed a confirmation to {order.customer_email}.
                     </p>
                 </div>
 
                 <div className="mt-10 rounded-xl border bg-card">
                     <ul className="divide-y">
                         {order.items?.map((item) => (
-                            <li key={item.id} className="flex items-center gap-4 p-4">
-                                <ProductImage src={item.image} alt="" className="size-16 rounded-lg border p-1" />
+                            <li
+                                key={item.id}
+                                className="flex items-center gap-4 p-4"
+                            >
+                                <ProductImage
+                                    src={item.image}
+                                    alt=""
+                                    className="size-16 rounded-lg border p-1"
+                                />
                                 <div className="min-w-0 flex-1">
-                                    <p className="truncate font-medium">{item.name}</p>
-                                    <p className="text-sm text-muted-foreground">Qty {item.quantity}</p>
+                                    <p className="truncate font-medium">
+                                        {item.name}
+                                    </p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Qty {item.quantity}
+                                    </p>
                                 </div>
-                                <p className="font-medium">{item.line_total.formatted}</p>
+                                <p className="font-medium">
+                                    {item.line_total.formatted}
+                                </p>
                             </li>
                         ))}
                     </ul>
@@ -41,18 +60,22 @@ export default function CheckoutComplete({ order }: { order: Order }) {
                         <div>
                             <dt className="text-muted-foreground">Payment</dt>
                             <dd className="font-medium">
-                                {order.payment_method.label} · {order.payment_status.label}
+                                {order.payment_method.label} ·{' '}
+                                {order.payment_status.label}
                             </dd>
                         </div>
                         <div>
                             <dt className="text-muted-foreground">Ship to</dt>
                             <dd className="font-medium">
-                                {order.shipping_address.name}, {order.shipping_address.city}
+                                {order.shipping_address.name},{' '}
+                                {order.shipping_address.city}
                             </dd>
                         </div>
                         <div>
                             <dt className="text-muted-foreground">Total</dt>
-                            <dd className="font-semibold">{order.grand_total.formatted}</dd>
+                            <dd className="font-semibold">
+                                {order.grand_total.formatted}
+                            </dd>
                         </div>
                     </dl>
                 </div>

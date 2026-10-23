@@ -22,8 +22,12 @@ export function StatCard({
                     <Icon className="size-4" />
                 </span>
             </div>
-            <p className="mt-3 text-2xl font-semibold tracking-tight">{value}</p>
-            {hint && <div className="mt-1 text-xs text-muted-foreground">{hint}</div>}
+            <p className="mt-3 text-2xl font-semibold tracking-tight">
+                {value}
+            </p>
+            {hint && (
+                <div className="mt-1 text-xs text-muted-foreground">{hint}</div>
+            )}
         </div>
     );
 }

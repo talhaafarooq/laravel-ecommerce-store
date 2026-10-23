@@ -20,7 +20,12 @@ import { edit as profileEdit } from '@/routes/profile';
 import { edit as securityEdit } from '@/routes/security';
 
 const items = [
-    { title: 'Overview', href: dashboard.url(), icon: LayoutDashboard, exact: true },
+    {
+        title: 'Overview',
+        href: dashboard.url(),
+        icon: LayoutDashboard,
+        exact: true,
+    },
     { title: 'Orders', href: ordersIndex.url(), icon: Package },
     { title: 'Wishlist', href: wishlistIndex.url(), icon: Heart },
     { title: 'Addresses', href: addressesIndex.url(), icon: MapPin },

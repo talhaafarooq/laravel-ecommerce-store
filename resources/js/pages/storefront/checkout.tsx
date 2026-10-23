@@ -37,8 +37,11 @@ const blank = {
 };
 
 export default function Checkout({ cart, addresses, paymentMethods }: Props) {
-    const initial = addresses.find((address) => address.is_default) ?? addresses[0];
-    const [selected, setSelected] = useState<number | 'new'>(initial?.id ?? 'new');
+    const initial =
+        addresses.find((address) => address.is_default) ?? addresses[0];
+    const [selected, setSelected] = useState<number | 'new'>(
+        initial?.id ?? 'new',
+    );
 
     const form = useForm({
         shipping: initial ? toShipping(initial) : { ...blank },
@@ -57,7 +60,9 @@ export default function Checkout({ cart, addresses, paymentMethods }: Props) {
             return;
         }
 
-        const address = addresses.find((candidate) => candidate.id === Number(value));
+        const address = addresses.find(
+            (candidate) => candidate.id === Number(value),
+        );
 
         if (address) {
             setSelected(address.id);
@@ -72,7 +77,9 @@ export default function Checkout({ cart, addresses, paymentMethods }: Props) {
         <>
             <Head title="Checkout" />
             <Container className="py-8 lg:py-12">
-                <h1 className="mb-8 text-3xl font-semibold tracking-tight">Checkout</h1>
+                <h1 className="mb-8 text-3xl font-semibold tracking-tight">
+                    Checkout
+                </h1>
 
                 <form
                     onSubmit={(event) => {
@@ -100,7 +107,8 @@ export default function Checkout({ cart, addresses, paymentMethods }: Props) {
                                             htmlFor={`address-${address.id}`}
                                             className={cn(
                                                 'flex cursor-pointer items-start gap-3 rounded-lg border p-4 font-normal transition-colors',
-                                                selected === address.id && 'border-primary bg-primary/5',
+                                                selected === address.id &&
+                                                    'border-primary bg-primary/5',
                                             )}
                                         >
                                             <RadioGroupItem
@@ -110,10 +118,13 @@ export default function Checkout({ cart, addresses, paymentMethods }: Props) {
                                             />
                                             <span className="text-sm">
                                                 <span className="block font-medium">
-                                                    {address.label ?? address.full_name}
+                                                    {address.label ??
+                                                        address.full_name}
                                                 </span>
                                                 <span className="block text-muted-foreground">
-                                                    {address.line1}, {address.city}, {address.postal_code}
+                                                    {address.line1},{' '}
+                                                    {address.city},{' '}
+                                                    {address.postal_code}
                                                 </span>
                                             </span>
                                         </Label>
@@ -122,75 +133,146 @@ export default function Checkout({ cart, addresses, paymentMethods }: Props) {
                                         htmlFor="address-new"
                                         className={cn(
                                             'flex cursor-pointer items-center gap-3 rounded-lg border border-dashed p-4 font-normal',
-                                            selected === 'new' && 'border-primary bg-primary/5',
+                                            selected === 'new' &&
+                                                'border-primary bg-primary/5',
                                         )}
                                     >
-                                        <RadioGroupItem id="address-new" value="new" />
-                                        <span className="text-sm font-medium">Use a new address</span>
+                                        <RadioGroupItem
+                                            id="address-new"
+                                            value="new"
+                                        />
+                                        <span className="text-sm font-medium">
+                                            Use a new address
+                                        </span>
                                     </Label>
                                 </RadioGroup>
                             )}
 
                             <div className="grid gap-4 sm:grid-cols-2">
-                                <Field label="Full name" error={errors['shipping.full_name']} className="sm:col-span-2">
+                                <Field
+                                    label="Full name"
+                                    error={errors['shipping.full_name']}
+                                    className="sm:col-span-2"
+                                >
                                     <Input
                                         value={form.data.shipping.full_name}
-                                        onChange={(event) => setField('full_name', event.target.value)}
+                                        onChange={(event) =>
+                                            setField(
+                                                'full_name',
+                                                event.target.value,
+                                            )
+                                        }
                                         autoComplete="name"
                                         required
                                     />
                                 </Field>
-                                <Field label="Phone" error={errors['shipping.phone']} className="sm:col-span-2">
+                                <Field
+                                    label="Phone"
+                                    error={errors['shipping.phone']}
+                                    className="sm:col-span-2"
+                                >
                                     <Input
                                         type="tel"
                                         value={form.data.shipping.phone}
-                                        onChange={(event) => setField('phone', event.target.value)}
+                                        onChange={(event) =>
+                                            setField(
+                                                'phone',
+                                                event.target.value,
+                                            )
+                                        }
                                         autoComplete="tel"
                                         required
                                     />
                                 </Field>
-                                <Field label="Address" error={errors['shipping.line1']} className="sm:col-span-2">
+                                <Field
+                                    label="Address"
+                                    error={errors['shipping.line1']}
+                                    className="sm:col-span-2"
+                                >
                                     <Input
                                         value={form.data.shipping.line1}
-                                        onChange={(event) => setField('line1', event.target.value)}
+                                        onChange={(event) =>
+                                            setField(
+                                                'line1',
+                                                event.target.value,
+                                            )
+                                        }
                                         autoComplete="address-line1"
                                         required
                                     />
                                 </Field>
-                                <Field label="Apartment, suite, etc. (optional)" error={errors['shipping.line2']} className="sm:col-span-2">
+                                <Field
+                                    label="Apartment, suite, etc. (optional)"
+                                    error={errors['shipping.line2']}
+                                    className="sm:col-span-2"
+                                >
                                     <Input
                                         value={form.data.shipping.line2}
-                                        onChange={(event) => setField('line2', event.target.value)}
+                                        onChange={(event) =>
+                                            setField(
+                                                'line2',
+                                                event.target.value,
+                                            )
+                                        }
                                         autoComplete="address-line2"
                                     />
                                 </Field>
-                                <Field label="City" error={errors['shipping.city']}>
+                                <Field
+                                    label="City"
+                                    error={errors['shipping.city']}
+                                >
                                     <Input
                                         value={form.data.shipping.city}
-                                        onChange={(event) => setField('city', event.target.value)}
+                                        onChange={(event) =>
+                                            setField('city', event.target.value)
+                                        }
                                         autoComplete="address-level2"
                                         required
                                     />
                                 </Field>
-                                <Field label="State / region" error={errors['shipping.state']}>
+                                <Field
+                                    label="State / region"
+                                    error={errors['shipping.state']}
+                                >
                                     <Input
                                         value={form.data.shipping.state}
-                                        onChange={(event) => setField('state', event.target.value)}
+                                        onChange={(event) =>
+                                            setField(
+                                                'state',
+                                                event.target.value,
+                                            )
+                                        }
                                         autoComplete="address-level1"
                                     />
                                 </Field>
-                                <Field label="Postal code" error={errors['shipping.postal_code']}>
+                                <Field
+                                    label="Postal code"
+                                    error={errors['shipping.postal_code']}
+                                >
                                     <Input
                                         value={form.data.shipping.postal_code}
-                                        onChange={(event) => setField('postal_code', event.target.value)}
+                                        onChange={(event) =>
+                                            setField(
+                                                'postal_code',
+                                                event.target.value,
+                                            )
+                                        }
                                         autoComplete="postal-code"
                                         required
                                     />
                                 </Field>
-                                <Field label="Country (2-letter code)" error={errors['shipping.country']}>
+                                <Field
+                                    label="Country (2-letter code)"
+                                    error={errors['shipping.country']}
+                                >
                                     <Input
                                         value={form.data.shipping.country}
-                                        onChange={(event) => setField('country', event.target.value.toUpperCase())}
+                                        onChange={(event) =>
+                                            setField(
+                                                'country',
+                                                event.target.value.toUpperCase(),
+                                            )
+                                        }
                                         maxLength={2}
                                         autoComplete="country"
                                         required
@@ -203,9 +285,17 @@ export default function Checkout({ cart, addresses, paymentMethods }: Props) {
                                     <Checkbox
                                         id="save-address"
                                         checked={form.data.save_address}
-                                        onCheckedChange={(checked) => form.setData('save_address', checked === true)}
+                                        onCheckedChange={(checked) =>
+                                            form.setData(
+                                                'save_address',
+                                                checked === true,
+                                            )
+                                        }
                                     />
-                                    <Label htmlFor="save-address" className="font-normal">
+                                    <Label
+                                        htmlFor="save-address"
+                                        className="font-normal"
+                                    >
                                         Save this address for next time
                                     </Label>
                                 </div>
@@ -219,7 +309,9 @@ export default function Checkout({ cart, addresses, paymentMethods }: Props) {
                             </h2>
                             <RadioGroup
                                 value={form.data.payment_method}
-                                onValueChange={(value) => form.setData('payment_method', value)}
+                                onValueChange={(value) =>
+                                    form.setData('payment_method', value)
+                                }
                                 className="grid gap-3"
                             >
                                 {paymentMethods.map((method) => (
@@ -228,13 +320,23 @@ export default function Checkout({ cart, addresses, paymentMethods }: Props) {
                                         htmlFor={`pay-${method.value}`}
                                         className={cn(
                                             'flex cursor-pointer items-start gap-3 rounded-lg border p-4 font-normal transition-colors',
-                                            form.data.payment_method === method.value && 'border-primary bg-primary/5',
+                                            form.data.payment_method ===
+                                                method.value &&
+                                                'border-primary bg-primary/5',
                                         )}
                                     >
-                                        <RadioGroupItem id={`pay-${method.value}`} value={method.value} className="mt-1" />
+                                        <RadioGroupItem
+                                            id={`pay-${method.value}`}
+                                            value={method.value}
+                                            className="mt-1"
+                                        />
                                         <span className="flex-1">
-                                            <span className="block text-sm font-medium">{method.label}</span>
-                                            <span className="block text-sm text-muted-foreground">{method.description}</span>
+                                            <span className="block text-sm font-medium">
+                                                {method.label}
+                                            </span>
+                                            <span className="block text-sm text-muted-foreground">
+                                                {method.description}
+                                            </span>
                                         </span>
                                         {method.value === 'stripe' ? (
                                             <CreditCard className="size-5 text-muted-foreground" />
@@ -244,22 +346,36 @@ export default function Checkout({ cart, addresses, paymentMethods }: Props) {
                                     </Label>
                                 ))}
                             </RadioGroup>
-                            <InputError message={form.errors.payment_method} className="mt-2" />
+                            <InputError
+                                message={form.errors.payment_method}
+                                className="mt-2"
+                            />
                         </section>
 
                         <section className="rounded-xl border bg-card p-6">
-                            <Label htmlFor="notes" className="mb-2 block text-lg font-semibold">
-                                Order notes <span className="text-sm font-normal text-muted-foreground">(optional)</span>
+                            <Label
+                                htmlFor="notes"
+                                className="mb-2 block text-lg font-semibold"
+                            >
+                                Order notes{' '}
+                                <span className="text-sm font-normal text-muted-foreground">
+                                    (optional)
+                                </span>
                             </Label>
                             <Textarea
                                 id="notes"
                                 value={form.data.notes}
-                                onChange={(event) => form.setData('notes', event.target.value)}
+                                onChange={(event) =>
+                                    form.setData('notes', event.target.value)
+                                }
                                 placeholder="Delivery instructions, gift message…"
                                 rows={3}
                                 maxLength={1000}
                             />
-                            <InputError message={form.errors.notes} className="mt-2" />
+                            <InputError
+                                message={form.errors.notes}
+                                className="mt-2"
+                            />
                         </section>
                     </div>
 
@@ -269,27 +385,44 @@ export default function Checkout({ cart, addresses, paymentMethods }: Props) {
                             {cart.items.map((line) => (
                                 <li key={line.id} className="flex gap-3">
                                     <div className="relative">
-                                        <ProductImage src={line.product.image} alt="" className="size-14 rounded-lg border p-1" />
+                                        <ProductImage
+                                            src={line.product.image}
+                                            alt=""
+                                            className="size-14 rounded-lg border p-1"
+                                        />
                                         <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full bg-foreground text-[10px] font-semibold text-background">
                                             {line.quantity}
                                         </span>
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                        <p className="line-clamp-2 text-sm">{line.product.name}</p>
+                                        <p className="line-clamp-2 text-sm">
+                                            {line.product.name}
+                                        </p>
                                     </div>
-                                    <p className="text-sm font-medium">{line.line_total.formatted}</p>
+                                    <p className="text-sm font-medium">
+                                        {line.line_total.formatted}
+                                    </p>
                                 </li>
                             ))}
                         </ul>
-                        <OrderTotals totals={cart.totals} couponCode={cart.coupon?.code} />
-                        <Button type="submit" size="lg" className="w-full" disabled={form.processing || cart.has_issues}>
+                        <OrderTotals
+                            totals={cart.totals}
+                            couponCode={cart.coupon?.code}
+                        />
+                        <Button
+                            type="submit"
+                            size="lg"
+                            className="w-full"
+                            disabled={form.processing || cart.has_issues}
+                        >
                             {form.processing ? <Spinner /> : <Lock />}
                             {form.data.payment_method === 'stripe'
                                 ? `Pay ${cart.totals.total.formatted}`
                                 : 'Place order'}
                         </Button>
                         <p className="text-center text-xs text-muted-foreground">
-                            By placing your order you agree to our terms. Need to change something?{' '}
+                            By placing your order you agree to our terms. Need
+                            to change something?{' '}
                             <Link href={cartIndex()} className="underline">
                                 Edit cart
                             </Link>

@@ -15,7 +15,9 @@ export function OrderProgress({ order }: { order: Order }) {
                 <div>
                     <p className="font-medium">This order was cancelled</p>
                     {order.cancellation_reason && (
-                        <p className="opacity-80">{order.cancellation_reason}</p>
+                        <p className="opacity-80">
+                            {order.cancellation_reason}
+                        </p>
                     )}
                 </div>
             </div>
@@ -29,23 +31,57 @@ export function OrderProgress({ order }: { order: Order }) {
                 const current = order.status.step === index + 1;
 
                 return (
-                    <li key={label} className="flex flex-col items-center gap-2 text-center">
+                    <li
+                        key={label}
+                        className="flex flex-col items-center gap-2 text-center"
+                    >
                         <div className="flex w-full items-center">
-                            <span className={cn('h-0.5 flex-1', index === 0 ? 'opacity-0' : done || current ? 'bg-primary' : 'bg-border')} />
+                            <span
+                                className={cn(
+                                    'h-0.5 flex-1',
+                                    index === 0
+                                        ? 'opacity-0'
+                                        : done || current
+                                          ? 'bg-primary'
+                                          : 'bg-border',
+                                )}
+                            />
                             <span
                                 className={cn(
                                     'flex size-8 shrink-0 items-center justify-center rounded-full border-2 text-xs font-semibold',
                                     done || current
                                         ? 'border-primary bg-primary text-primary-foreground'
                                         : 'border-border bg-background text-muted-foreground',
-                                    current && !done && 'ring-4 ring-primary/20',
+                                    current &&
+                                        !done &&
+                                        'ring-4 ring-primary/20',
                                 )}
                             >
-                                {done ? <Check className="size-4" /> : index + 1}
+                                {done ? (
+                                    <Check className="size-4" />
+                                ) : (
+                                    index + 1
+                                )}
                             </span>
-                            <span className={cn('h-0.5 flex-1', index === steps.length - 1 ? 'opacity-0' : done ? 'bg-primary' : 'bg-border')} />
+                            <span
+                                className={cn(
+                                    'h-0.5 flex-1',
+                                    index === steps.length - 1
+                                        ? 'opacity-0'
+                                        : done
+                                          ? 'bg-primary'
+                                          : 'bg-border',
+                                )}
+                            />
                         </div>
-                        <span className={cn('text-xs font-medium', done || current ? 'text-foreground' : 'text-muted-foreground')}>
+                        <span
+                            className={cn(
+                                'text-xs font-medium',
+                                done || current
+                                    ? 'text-foreground'
+                                    : 'text-muted-foreground',
+                            )}
+                        >
                             {label}
                         </span>
                     </li>

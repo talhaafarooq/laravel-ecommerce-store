@@ -32,7 +32,9 @@ export default function Home({
     categories,
     posts,
 }: Props) {
-    const heroProducts = featured.filter((product) => product.image).slice(0, 3);
+    const heroProducts = featured
+        .filter((product) => product.image)
+        .slice(0, 3);
 
     return (
         <>
@@ -56,8 +58,8 @@ export default function Home({
                             <span className="text-primary">in one place.</span>
                         </h1>
                         <p className="mt-5 max-w-lg text-lg text-muted-foreground">
-                            Discover thousands of products from trusted brands
-                            — with fast delivery, secure checkout and hassle-free
+                            Discover thousands of products from trusted brands —
+                            with fast delivery, secure checkout and hassle-free
                             returns.
                         </p>
                         <div className="mt-8 flex flex-wrap gap-3">
@@ -68,7 +70,9 @@ export default function Home({
                                 </Link>
                             </Button>
                             <Button size="lg" variant="outline" asChild>
-                                <Link href={shopIndex({ query: { on_sale: 1 } })}>
+                                <Link
+                                    href={shopIndex({ query: { on_sale: 1 } })}
+                                >
                                     <BadgePercent />
                                     Browse deals
                                 </Link>
@@ -86,7 +90,8 @@ export default function Home({
                                         'absolute overflow-hidden rounded-2xl border bg-card shadow-xl transition-transform hover:-translate-y-1',
                                         index === 0 && 'top-0 left-8 z-10 w-64',
                                         index === 1 && 'top-16 right-0 w-56',
-                                        index === 2 && 'bottom-0 left-36 z-20 w-52',
+                                        index === 2 &&
+                                            'bottom-0 left-36 z-20 w-52',
                                     ]
                                         .filter(Boolean)
                                         .join(' ')}
@@ -177,7 +182,9 @@ export default function Home({
                                 className="mt-6"
                                 asChild
                             >
-                                <Link href={shopIndex({ query: { on_sale: 1 } })}>
+                                <Link
+                                    href={shopIndex({ query: { on_sale: 1 } })}
+                                >
                                     Shop all deals
                                     <ArrowRight />
                                 </Link>
@@ -257,7 +264,10 @@ export default function Home({
                     href={blogIndex()}
                     linkLabel="Read the blog"
                 />
-                <Deferred data="posts" fallback={<ProductGridSkeleton count={3} />}>
+                <Deferred
+                    data="posts"
+                    fallback={<ProductGridSkeleton count={3} />}
+                >
                     <div className="grid gap-6 md:grid-cols-3">
                         {posts?.map((post) => (
                             <PostCard key={post.id} post={post} />

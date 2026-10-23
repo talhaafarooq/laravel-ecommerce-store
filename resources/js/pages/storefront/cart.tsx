@@ -1,5 +1,12 @@
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
-import { AlertTriangle, ArrowRight, ShoppingBag, Tag, Trash2, X } from 'lucide-react';
+import {
+    AlertTriangle,
+    ArrowRight,
+    ShoppingBag,
+    Tag,
+    Trash2,
+    X,
+} from 'lucide-react';
 import { useState } from 'react';
 import InputError from '@/components/input-error';
 import { Container } from '@/components/shop/container';
@@ -13,7 +20,10 @@ import { Input } from '@/components/ui/input';
 import { login } from '@/routes';
 import { clear } from '@/routes/cart';
 import { destroy, update } from '@/routes/cart/items';
-import { destroy as removeCoupon, store as applyCoupon } from '@/routes/cart/coupon';
+import {
+    destroy as removeCoupon,
+    store as applyCoupon,
+} from '@/routes/cart/coupon';
 import { show as checkout } from '@/routes/checkout';
 import { show as productShow } from '@/routes/products';
 import { index as shopIndex } from '@/routes/shop';
@@ -46,7 +56,11 @@ export default function CartPage({ cart }: { cart: Cart }) {
     const threshold = store.free_shipping_threshold;
     const progress =
         threshold && remaining
-            ? Math.min(100, ((threshold.amount - remaining.amount) / threshold.amount) * 100)
+            ? Math.min(
+                  100,
+                  ((threshold.amount - remaining.amount) / threshold.amount) *
+                      100,
+              )
             : 100;
 
     return (
@@ -54,7 +68,9 @@ export default function CartPage({ cart }: { cart: Cart }) {
             <Head title="Shopping cart" />
             <Container className="py-8 lg:py-12">
                 <div className="mb-8 flex items-end justify-between">
-                    <h1 className="text-3xl font-semibold tracking-tight">Shopping cart</h1>
+                    <h1 className="text-3xl font-semibold tracking-tight">
+                        Shopping cart
+                    </h1>
                     <button
                         type="button"
                         onClick={() => router.delete(clear())}
@@ -71,7 +87,11 @@ export default function CartPage({ cart }: { cart: Cart }) {
                                 <p className="text-sm">
                                     {remaining && remaining.amount > 0 ? (
                                         <>
-                                            Add <strong>{remaining.formatted}</strong> more to get{' '}
+                                            Add{' '}
+                                            <strong>
+                                                {remaining.formatted}
+                                            </strong>{' '}
+                                            more to get{' '}
                                             <strong>free shipping</strong>!
                                         </>
                                     ) : (
@@ -92,7 +112,8 @@ export default function CartPage({ cart }: { cart: Cart }) {
                         {cart.has_issues && (
                             <div className="flex items-start gap-3 rounded-xl border border-amber-500/40 bg-amber-50 p-4 text-sm text-amber-900 dark:bg-amber-500/10 dark:text-amber-200">
                                 <AlertTriangle className="mt-0.5 size-4 shrink-0" />
-                                Some items need your attention before you can check out.
+                                Some items need your attention before you can
+                                check out.
                             </div>
                         )}
 
@@ -106,9 +127,17 @@ export default function CartPage({ cart }: { cart: Cart }) {
                     <aside className="h-fit space-y-5 rounded-xl border bg-card p-6 lg:sticky lg:top-40">
                         <h2 className="text-lg font-semibold">Order summary</h2>
                         <CouponBox coupon={cart.coupon} />
-                        <OrderTotals totals={cart.totals} couponCode={cart.coupon?.code} />
+                        <OrderTotals
+                            totals={cart.totals}
+                            couponCode={cart.coupon?.code}
+                        />
                         {auth.user ? (
-                            <Button size="lg" className="w-full" asChild disabled={cart.has_issues}>
+                            <Button
+                                size="lg"
+                                className="w-full"
+                                asChild
+                                disabled={cart.has_issues}
+                            >
                                 <Link href={checkout()}>
                                     Proceed to checkout
                                     <ArrowRight />
@@ -138,12 +167,16 @@ function CartRow({ line }: { line: CartLine }) {
 
     const change = (next: number) => {
         setQuantity(next);
-        router.patch(update(line.id), { quantity: next }, {
-            preserveScroll: true,
-            onStart: () => setPending(true),
-            onFinish: () => setPending(false),
-            onError: () => setQuantity(line.quantity),
-        });
+        router.patch(
+            update(line.id),
+            { quantity: next },
+            {
+                preserveScroll: true,
+                onStart: () => setPending(true),
+                onFinish: () => setPending(false),
+                onError: () => setQuantity(line.quantity),
+            },
+        );
     };
 
     return (
@@ -164,7 +197,9 @@ function CartRow({ line }: { line: CartLine }) {
                         >
                             {line.product.name}
                         </Link>
-                        <p className="text-xs text-muted-foreground">{line.product.category}</p>
+                        <p className="text-xs text-muted-foreground">
+                            {line.product.category}
+                        </p>
                     </div>
                     <Price price={line.line_total} />
                 </div>
@@ -189,7 +224,11 @@ function CartRow({ line }: { line: CartLine }) {
                     </div>
                     <button
                         type="button"
-                        onClick={() => router.delete(destroy(line.id), { preserveScroll: true })}
+                        onClick={() =>
+                            router.delete(destroy(line.id), {
+                                preserveScroll: true,
+                            })
+                        }
                         className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-destructive"
                     >
                         <Trash2 className="size-4" />
@@ -214,15 +253,25 @@ function CouponBox({ coupon }: { coupon: Cart['coupon'] }) {
                     </p>
                     <button
                         type="button"
-                        onClick={() => router.delete(removeCoupon(), { preserveScroll: true })}
+                        onClick={() =>
+                            router.delete(removeCoupon(), {
+                                preserveScroll: true,
+                            })
+                        }
                         aria-label="Remove coupon"
                         className="text-emerald-800 hover:text-emerald-950 dark:text-emerald-300"
                     >
                         <X className="size-4" />
                     </button>
                 </div>
-                <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-400">{coupon.summary}</p>
-                {coupon.error && <p className="mt-1 text-xs text-destructive">{coupon.error}</p>}
+                <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-400">
+                    {coupon.summary}
+                </p>
+                {coupon.error && (
+                    <p className="mt-1 text-xs text-destructive">
+                        {coupon.error}
+                    </p>
+                )}
             </div>
         );
     }
@@ -240,12 +289,18 @@ function CouponBox({ coupon }: { coupon: Cart['coupon'] }) {
             <div className="flex gap-2">
                 <Input
                     value={form.data.code}
-                    onChange={(event) => form.setData('code', event.target.value)}
+                    onChange={(event) =>
+                        form.setData('code', event.target.value)
+                    }
                     placeholder="Discount code"
                     aria-label="Discount code"
                     className="uppercase placeholder:normal-case"
                 />
-                <Button type="submit" variant="outline" disabled={form.processing || !form.data.code.trim()}>
+                <Button
+                    type="submit"
+                    variant="outline"
+                    disabled={form.processing || !form.data.code.trim()}
+                >
                     Apply
                 </Button>
             </div>

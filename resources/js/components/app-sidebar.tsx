@@ -33,7 +33,12 @@ import admin from '@/routes/admin';
 import type { NavItem } from '@/types';
 
 const storeItems: NavItem[] = [
-    { title: 'Dashboard', href: admin.dashboard(), icon: LayoutGrid, exact: true },
+    {
+        title: 'Dashboard',
+        href: admin.dashboard(),
+        icon: LayoutGrid,
+        exact: true,
+    },
     { title: 'Orders', href: admin.orders.index(), icon: ShoppingCart },
     { title: 'Products', href: admin.products.index(), icon: Package },
     { title: 'Inventory', href: admin.inventory.index(), icon: Boxes },
@@ -79,7 +84,10 @@ export function AppSidebar() {
                 <SidebarGroup className="p-0">
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton asChild tooltip={{ children: 'View store' }}>
+                            <SidebarMenuButton
+                                asChild
+                                tooltip={{ children: 'View store' }}
+                            >
                                 <Link href={home()}>
                                     <Store />
                                     <span>View store</span>

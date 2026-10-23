@@ -59,34 +59,69 @@ export default function ProductPage({
     const [quantity, setQuantity] = useState(1);
     const images = product.images.length
         ? product.images
-        : [{ id: 0, url: product.image, thumbnail: product.image, alt: product.name, position: 0 }];
+        : [
+              {
+                  id: 0,
+                  url: product.image,
+                  thumbnail: product.image,
+                  alt: product.name,
+                  position: 0,
+              },
+          ];
     const selected = images[Math.min(active, images.length - 1)];
-    const totalRatings = Object.values(ratingBreakdown).reduce((sum, value) => sum + value, 0);
+    const totalRatings = Object.values(ratingBreakdown).reduce(
+        (sum, value) => sum + value,
+        0,
+    );
 
     return (
         <>
             <Head title={product.meta_title}>
-                <meta name="description" content={product.meta_description ?? product.short_description ?? ''} />
+                <meta
+                    name="description"
+                    content={
+                        product.meta_description ??
+                        product.short_description ??
+                        ''
+                    }
+                />
                 <meta property="og:title" content={product.name} />
                 <meta property="og:type" content="product" />
-                {selected?.url && <meta property="og:image" content={selected.url} />}
+                {selected?.url && (
+                    <meta property="og:image" content={selected.url} />
+                )}
             </Head>
 
             <Container className="py-6">
-                <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
-                    <Link href={home()} className="hover:text-foreground">Home</Link>
+                <nav
+                    aria-label="Breadcrumb"
+                    className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground"
+                >
+                    <Link href={home()} className="hover:text-foreground">
+                        Home
+                    </Link>
                     <ChevronRight className="size-3.5" />
-                    <Link href={shopIndex()} className="hover:text-foreground">Shop</Link>
+                    <Link href={shopIndex()} className="hover:text-foreground">
+                        Shop
+                    </Link>
                     {product.category.parent && (
                         <>
                             <ChevronRight className="size-3.5" />
-                            <Link href={categoryShow(product.category.parent.slug)} className="hover:text-foreground">
+                            <Link
+                                href={categoryShow(
+                                    product.category.parent.slug,
+                                )}
+                                className="hover:text-foreground"
+                            >
                                 {product.category.parent.name}
                             </Link>
                         </>
                     )}
                     <ChevronRight className="size-3.5" />
-                    <Link href={categoryShow(product.category.slug)} className="hover:text-foreground">
+                    <Link
+                        href={categoryShow(product.category.slug)}
+                        className="hover:text-foreground"
+                    >
                         {product.category.name}
                     </Link>
                 </nav>
@@ -111,10 +146,16 @@ export default function ProductPage({
                                         aria-current={index === active}
                                         className={cn(
                                             'block overflow-hidden rounded-lg border-2 transition-colors',
-                                            index === active ? 'border-primary' : 'border-transparent hover:border-border',
+                                            index === active
+                                                ? 'border-primary'
+                                                : 'border-transparent hover:border-border',
                                         )}
                                     >
-                                        <ProductImage src={image.thumbnail} alt="" className="size-20 p-1.5" />
+                                        <ProductImage
+                                            src={image.thumbnail}
+                                            alt=""
+                                            className="size-20 p-1.5"
+                                        />
                                     </button>
                                 </li>
                             ))}
@@ -125,24 +166,38 @@ export default function ProductPage({
                 <div>
                     {product.brand && (
                         <Link
-                            href={shopIndex({ query: { brands: [product.brand.slug] } })}
+                            href={shopIndex({
+                                query: { brands: [product.brand.slug] },
+                            })}
                             className="text-xs font-semibold tracking-widest text-primary uppercase hover:underline"
                         >
                             {product.brand.name}
                         </Link>
                     )}
-                    <h1 className="mt-1 text-3xl font-semibold tracking-tight text-balance">{product.name}</h1>
+                    <h1 className="mt-1 text-3xl font-semibold tracking-tight text-balance">
+                        {product.name}
+                    </h1>
 
                     <div className="mt-3 flex flex-wrap items-center gap-3">
                         <RatingStars rating={product.rating} size="md" />
-                        <a href="#reviews" className="text-sm text-muted-foreground hover:text-foreground">
-                            {product.reviews_count} {product.reviews_count === 1 ? 'review' : 'reviews'}
+                        <a
+                            href="#reviews"
+                            className="text-sm text-muted-foreground hover:text-foreground"
+                        >
+                            {product.reviews_count}{' '}
+                            {product.reviews_count === 1 ? 'review' : 'reviews'}
                         </a>
-                        <span className="text-sm text-muted-foreground">SKU: {product.sku}</span>
+                        <span className="text-sm text-muted-foreground">
+                            SKU: {product.sku}
+                        </span>
                     </div>
 
                     <div className="mt-6 flex items-center gap-3">
-                        <Price price={product.price} compareAt={product.compare_at_price} size="lg" />
+                        <Price
+                            price={product.price}
+                            compareAt={product.compare_at_price}
+                            size="lg"
+                        />
                         {product.discount_percentage && (
                             <span className="rounded-full bg-rose-600 px-2.5 py-1 text-xs font-semibold text-white">
                                 Save {product.discount_percentage}%
@@ -151,7 +206,9 @@ export default function ProductPage({
                     </div>
 
                     {product.short_description && (
-                        <p className="mt-5 text-muted-foreground">{product.short_description}</p>
+                        <p className="mt-5 text-muted-foreground">
+                            {product.short_description}
+                        </p>
                     )}
 
                     <div className="mt-6 flex items-center gap-2">
@@ -164,7 +221,11 @@ export default function ProductPage({
 
                     <div className="mt-6 flex flex-wrap items-center gap-3">
                         {product.in_stock && (
-                            <QuantityInput value={quantity} max={product.max_quantity} onChange={setQuantity} />
+                            <QuantityInput
+                                value={quantity}
+                                max={product.max_quantity}
+                                onChange={setQuantity}
+                            />
                         )}
                         <AddToCartButton
                             productId={product.id}
@@ -173,7 +234,12 @@ export default function ProductPage({
                             size="lg"
                             className="min-w-48 flex-1 sm:flex-none"
                         />
-                        <WishlistButton productId={product.id} slug={product.slug} withLabel className="h-10" />
+                        <WishlistButton
+                            productId={product.id}
+                            slug={product.slug}
+                            withLabel
+                            className="h-10"
+                        />
                     </div>
 
                     <ul className="mt-8 grid gap-3 rounded-xl border bg-muted/30 p-4 text-sm sm:grid-cols-3">
@@ -194,32 +260,57 @@ export default function ProductPage({
             <Container className="pb-12">
                 <Tabs defaultValue="description">
                     <TabsList>
-                        <TabsTrigger value="description">Description</TabsTrigger>
-                        <TabsTrigger value="reviews">Reviews ({product.reviews_count})</TabsTrigger>
+                        <TabsTrigger value="description">
+                            Description
+                        </TabsTrigger>
+                        <TabsTrigger value="reviews">
+                            Reviews ({product.reviews_count})
+                        </TabsTrigger>
                     </TabsList>
                     <TabsContent value="description" className="pt-6">
                         <div
                             className="rich-text max-w-3xl"
                             // Server-rendered, sanitised Markdown (raw HTML is stripped).
-                            dangerouslySetInnerHTML={{ __html: product.description_html }}
+                            dangerouslySetInnerHTML={{
+                                __html: product.description_html,
+                            }}
                         />
                     </TabsContent>
                     <TabsContent value="reviews" className="pt-6" id="reviews">
                         <div className="grid gap-10 lg:grid-cols-[18rem_1fr]">
                             <div className="space-y-6">
                                 <div>
-                                    <p className="text-5xl font-semibold tracking-tight">{product.rating.toFixed(1)}</p>
-                                    <RatingStars rating={product.rating} size="md" className="mt-2" />
+                                    <p className="text-5xl font-semibold tracking-tight">
+                                        {product.rating.toFixed(1)}
+                                    </p>
+                                    <RatingStars
+                                        rating={product.rating}
+                                        size="md"
+                                        className="mt-2"
+                                    />
                                     <p className="mt-1 text-sm text-muted-foreground">
                                         Based on {product.reviews_count} reviews
                                     </p>
                                 </div>
                                 <ul className="space-y-2">
                                     {[5, 4, 3, 2, 1].map((star) => (
-                                        <li key={star} className="flex items-center gap-3 text-sm">
-                                            <span className="w-8 shrink-0 text-muted-foreground">{star}★</span>
+                                        <li
+                                            key={star}
+                                            className="flex items-center gap-3 text-sm"
+                                        >
+                                            <span className="w-8 shrink-0 text-muted-foreground">
+                                                {star}★
+                                            </span>
                                             <Progress
-                                                value={totalRatings ? ((ratingBreakdown[star] ?? 0) / totalRatings) * 100 : 0}
+                                                value={
+                                                    totalRatings
+                                                        ? ((ratingBreakdown[
+                                                              star
+                                                          ] ?? 0) /
+                                                              totalRatings) *
+                                                          100
+                                                        : 0
+                                                }
                                                 className="h-2"
                                             />
                                             <span className="w-8 shrink-0 text-right text-muted-foreground">
@@ -229,10 +320,16 @@ export default function ProductPage({
                                     ))}
                                 </ul>
                                 {canReview ? (
-                                    <ReviewForm slug={product.slug} existing={ownReview} />
+                                    <ReviewForm
+                                        slug={product.slug}
+                                        existing={ownReview}
+                                    />
                                 ) : (
                                     <p className="rounded-xl border bg-muted/30 p-4 text-sm">
-                                        <Link href={login()} className="font-medium text-primary hover:underline">
+                                        <Link
+                                            href={login()}
+                                            className="font-medium text-primary hover:underline"
+                                        >
                                             Sign in
                                         </Link>{' '}
                                         to write a review.
@@ -243,16 +340,28 @@ export default function ProductPage({
                             <div>
                                 {reviews.data.length === 0 ? (
                                     <p className="rounded-xl border border-dashed p-8 text-center text-muted-foreground">
-                                        No reviews yet. Be the first to share your thoughts!
+                                        No reviews yet. Be the first to share
+                                        your thoughts!
                                     </p>
                                 ) : (
                                     <ul className="divide-y">
                                         {reviews.data.map((review) => (
-                                            <ReviewItem key={review.id} review={review} isOwn={auth.user?.id === review.author.id} />
+                                            <ReviewItem
+                                                key={review.id}
+                                                review={review}
+                                                isOwn={
+                                                    auth.user?.id ===
+                                                    review.author.id
+                                                }
+                                            />
                                         ))}
                                     </ul>
                                 )}
-                                <Pagination meta={reviews.meta} only={['reviews']} className="mt-6" />
+                                <Pagination
+                                    meta={reviews.meta}
+                                    only={['reviews']}
+                                    className="mt-6"
+                                />
                             </div>
                         </div>
                     </TabsContent>
@@ -283,7 +392,9 @@ function ReviewItem({ review, isOwn }: { review: Review; isOwn: boolean }) {
         <li className="flex gap-4 py-6 first:pt-0">
             <Avatar className="size-10">
                 <AvatarImage src={review.author.avatar ?? undefined} alt="" />
-                <AvatarFallback className="bg-primary/10 text-primary">{getInitials(review.author.name)}</AvatarFallback>
+                <AvatarFallback className="bg-primary/10 text-primary">
+                    {getInitials(review.author.name)}
+                </AvatarFallback>
             </Avatar>
             <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -294,17 +405,28 @@ function ReviewItem({ review, isOwn }: { review: Review; isOwn: boolean }) {
                             Verified purchase
                         </span>
                     )}
-                    <time className="text-xs text-muted-foreground" dateTime={review.created_at ?? undefined}>
+                    <time
+                        className="text-xs text-muted-foreground"
+                        dateTime={review.created_at ?? undefined}
+                    >
                         {formatDate(review.created_at)}
                     </time>
                 </div>
                 <RatingStars rating={review.rating} className="mt-1" />
-                {review.title && <p className="mt-2 font-medium">{review.title}</p>}
-                <p className="mt-1 text-sm whitespace-pre-line text-muted-foreground">{review.body}</p>
+                {review.title && (
+                    <p className="mt-2 font-medium">{review.title}</p>
+                )}
+                <p className="mt-1 text-sm whitespace-pre-line text-muted-foreground">
+                    {review.body}
+                </p>
                 {review.can_delete && (
                     <button
                         type="button"
-                        onClick={() => router.delete(destroyReview(review.id), { preserveScroll: true })}
+                        onClick={() =>
+                            router.delete(destroyReview(review.id), {
+                                preserveScroll: true,
+                            })
+                        }
                         className="mt-3 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-destructive"
                     >
                         <Trash2 className="size-3.5" />
