@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types = 1);
+
 use Dedoc\Scramble\Http\Middleware\RestrictedDocsAccess;
+use Dedoc\Scramble\OpenApiVersion;
 
 return [
     /*
@@ -37,14 +40,14 @@ return [
      * Use `scramble:cache` to warm the cache and `scramble:clear` to invalidate it.
      */
     'cache' => [
-        'key' => 'scramble.openapi',
+        'key'   => 'scramble.openapi',
         'store' => 'file',
     ],
 
     /*
      * OpenAPI version of the resulting document.
      */
-    'openapi_version' => \Dedoc\Scramble\OpenApiVersion::V3_1,
+    'openapi_version' => OpenApiVersion::V3_1,
 
     'info' => [
         /*
@@ -77,27 +80,27 @@ return [
          * Stoplight Elements config options: https://docs.stoplight.io/docs/elements/b074dc47b2826-elements-configuration-options
          */
         'elements' => [
-            'view' => 'scramble::docs',
-            'theme' => 'light',
-            'hideTryIt' => false,
-            'hideSchemas' => false,
-            'logo' => '',
+            'view'                   => 'scramble::docs',
+            'theme'                  => 'light',
+            'hideTryIt'              => false,
+            'hideSchemas'            => false,
+            'logo'                   => '',
             'tryItCredentialsPolicy' => 'include',
-            'layout' => 'responsive',
-            'router' => 'hash',
+            'layout'                 => 'responsive',
+            'router'                 => 'hash',
         ],
         /*
          * Scalar API reference config options: https://scalar.com/products/api-references/configuration
          */
         'scalar' => [
-            'view' => 'scramble::scalar',
-            'cdn' => 'https://cdn.jsdelivr.net/npm/@scalar/api-reference',
-            'theme' => 'laravel',
-            'proxyUrl' => 'https://proxy.scalar.com',
-            'darkMode' => false,
+            'view'               => 'scramble::scalar',
+            'cdn'                => 'https://cdn.jsdelivr.net/npm/@scalar/api-reference',
+            'theme'              => 'laravel',
+            'proxyUrl'           => 'https://proxy.scalar.com',
+            'darkMode'           => false,
             'showDeveloperTools' => 'never',
-            'agent' => ['disabled' => true],
-            'credentials' => 'include',
+            'agent'              => ['disabled' => true],
+            'credentials'        => 'include',
         ],
     ],
 
